@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from .models import Articles, Reporter
-from .serializer import ArticlesSerializer , ReporterSerializer
+from .models import Articles, Reporter , Publisher
+from .serializer import ArticlesSerializer , ReporterSerializer , PublisherSerializer
 from rest_framework import generics
 
 # Create your views here.
@@ -27,5 +27,9 @@ class ReporterUpdateView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ReporterSerializer
     queryset = Reporter.objects.all()
 
-
-
+class PublisherListView(generics.ListCreateAPIView):
+    serializer_class = PublisherSerializer
+    queryset = Publisher.objects.all()
+class PublisherUpdateView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = PublisherSerializer
+    queryset = Publisher.objects.all()

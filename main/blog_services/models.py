@@ -9,7 +9,15 @@ class Reporter(models.Model):
     email = models.EmailField(null=False, blank=False, unique=True)
     phone_number = models.CharField(max_length=100, blank=False, null=False)
 
+class Publisher(models.Model):
+    company_name = models.CharField(max_length=100, blank=False, null=False, unique=True)
+    address = models.CharField(max_length=100, blank=False, null=False)
+    city = models.CharField(max_length=100, blank=False, null=False)
+    state = models.CharField(max_length=100, blank=False, null=False)
+    country = models.CharField(max_length=100, blank=False, null=False)
+
 class Articles(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField()
     reporter = models.ForeignKey(Reporter, on_delete=models.SET_NULL, null=True )
+    publisher = models.ManyToManyField(Publisher)
