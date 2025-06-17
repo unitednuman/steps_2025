@@ -10,7 +10,6 @@ from drf_yasg.utils import swagger_auto_schema
 class ArticlesListView(generics.ListCreateAPIView):
     serializer_class = ArticlesSerializer
     queryset = Articles.objects.all()
-    # icontans , contains , iexat how to impliment
 
     @swagger_auto_schema(
         manual_parameters=[
@@ -19,11 +18,11 @@ class ArticlesListView(generics.ListCreateAPIView):
                               type = openapi.TYPE_STRING),
         ]
     )
-    def list(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs):
         filters = {}
         title = request.GET.get('title')
         if title:
-             filters.update({'title': title})
+            filters.update({'title': title})
         if filters:
             queryset = self.queryset.filter(**filters)
         else:
@@ -31,7 +30,6 @@ class ArticlesListView(generics.ListCreateAPIView):
         page = self.paginate_queryset(queryset)
         serializer = self.get_serializer(page, many=True)
         return self.get_paginated_response(serializer.data)
-
 
 class ArticlesUpdateView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ArticlesSerializer
