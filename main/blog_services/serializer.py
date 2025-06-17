@@ -26,5 +26,8 @@ class ArticlesSerializer(serializers.ModelSerializer):
         if reporter := instance.reporter:
             serialized = ReporterSerializer(reporter).data
             data.update({'reporter': serialized})
+        if publisher := instance.publisher:
+            serialized = PublisherSerializer(publisher, many=True).data
+            data.update({'publisher': serialized})
 
         return data
