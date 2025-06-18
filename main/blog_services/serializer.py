@@ -20,6 +20,7 @@ class ArticlesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Articles
         fields = '__all__'
+        read_only_fields = ('user',)
 
     def to_representation(self, instance):
         data = super(ArticlesSerializer,self).to_representation(instance)
@@ -31,3 +32,7 @@ class ArticlesSerializer(serializers.ModelSerializer):
             data.update({'publisher': serialized})
 
         return data
+
+    def create(self, validated_data):
+        validated_data['user'] = self.context['request'].user
+        return super().create(validated_data)

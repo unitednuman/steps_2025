@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 
 # Create your models here.
 
@@ -21,3 +22,4 @@ class Articles(models.Model):
     content = models.TextField()
     reporter = models.ForeignKey(Reporter, on_delete=models.SET_NULL, null=True )
     publisher = models.ManyToManyField(Publisher)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True )
